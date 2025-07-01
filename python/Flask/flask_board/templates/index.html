@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mini留言板</title>
+</head>
+<body>
+    <h1>Mini留言板</h1>
+    <form method="POST">
+        <p>昵称：<input name="username" required></p>
+        <p>留言内容：</p>
+        <p><textarea name="content" rows="4" cols="40" required></textarea></p>
+        <button type="submit">提交留言</button>
+    </form>
+    <hr>
+    <h2>历史留言</h2>
+    <ul>
+        {% for msg in messages %}
+            <li><strong>{{ msg.username }}</strong>：{{ msg.content }}<br><small>{{ msg.created_at }}</small></li>
+        {% else %}
+            <li>目前还没有留言</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
