@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>任务管理器</title>
+</head>
+<body>
+    <h1>任务管理器</h1>
+
+    <form method="POST">
+        <p>任务标题：<input name="title" required></p>
+        <p>任务说明：<br><textarea name="description" rows="3" cols="40"></textarea></p>
+        <button type="submit">添加任务</button>
+    </form>
+
+    <hr>
+
+    <h2>任务列表</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <form method="POST" action="{{ url_for('toggle', task_id=task.id) }}" style="display:inline;">
+                <button type="submit">{{ '✅' if task.done else '⬜' }}</button>
+            </form>
+            <strong {% if task.done %}style="text-decoration:line-through;"{% endif %}>
+                {{ task.title }}
+            </strong>
+            - {{ task.description }}
+            <a href="{{ url_for('edit', task_id=task.id) }}">编辑</a>
+            <form method="POST" action="{{ url_for('delete', task_id=task.id) }}" style="display:inline;">
+                <button type="submit">删除</button>
+            </form>
+        </li>
+        {% else %}
+        <li>暂无任务</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
